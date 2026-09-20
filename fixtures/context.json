@@ -1,0 +1,10 @@
+{
+  "domain": "joint-enforcement-secrecy",
+  "version": 1,
+  "facts": [
+    "医保部门会与公安机关联合行动",
+    "调查过程需要避免打草惊蛇",
+    "跨部门材料交接必须可追溯"
+  ],
+  "sample_id": "sample-015"
+}
