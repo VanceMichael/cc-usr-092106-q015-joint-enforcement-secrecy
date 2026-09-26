@@ -1,0 +1,869 @@
+{
+  "domain": "joint-enforcement-secrecy",
+  "version": 2,
+  "sample_id": "sample-015",
+  "case_file": {
+    "case_id": "虚构案-2026-云溪-07",
+    "title": "云溪“杏林回春”虚构骗保专案（全部要素虚构）",
+    "director_ids": [
+      "p-yin",
+      "p-hao"
+    ],
+    "core_entries": [
+      {
+        "entry_id": "ce-suspect-a",
+        "kind": "suspect",
+        "label": "嫌疑人甲（虚构代号“郎中”）",
+        "initial": true
+      },
+      {
+        "entry_id": "ce-warehouse-a",
+        "kind": "warehouse",
+        "label": "枫林里假票据仓库（虚构地点）",
+        "initial": true
+      },
+      {
+        "entry_id": "ce-fund-a",
+        "kind": "fund-account",
+        "label": "过桥账户组 F-07（虚构账号）",
+        "initial": true
+      },
+      {
+        "entry_id": "ce-suspect-b",
+        "kind": "suspect",
+        "label": "嫌疑人乙（虚构代号“账房”）",
+        "initial": false,
+        "added_via_event_id": "ev-013"
+      }
+    ]
+  },
+  "roles": [
+    {
+      "role_id": "r-director",
+      "name": "案件负责人"
+    },
+    {
+      "role_id": "r-field-checker",
+      "name": "基层核查员"
+    },
+    {
+      "role_id": "r-investigator",
+      "name": "侦查员"
+    },
+    {
+      "role_id": "r-analyst",
+      "name": "资金分析员"
+    },
+    {
+      "role_id": "r-auxiliary",
+      "name": "辅警钟点工"
+    },
+    {
+      "role_id": "r-prosecutor",
+      "name": "检察承办人"
+    }
+  ],
+  "persons": [
+    {
+      "person_id": "p-yin",
+      "name": "殷岚（虚构）",
+      "unit": "云溪医保分局",
+      "role_ids": [
+        "r-director"
+      ]
+    },
+    {
+      "person_id": "p-hao",
+      "name": "郝建（虚构）",
+      "unit": "云溪公安分局",
+      "role_ids": [
+        "r-director"
+      ]
+    },
+    {
+      "person_id": "p-lu",
+      "name": "卢笛（虚构）",
+      "unit": "云溪医保分局",
+      "role_ids": [
+        "r-field-checker"
+      ]
+    },
+    {
+      "person_id": "p-xing",
+      "name": "邢默（虚构）",
+      "unit": "云溪公安分局",
+      "role_ids": [
+        "r-investigator"
+      ]
+    },
+    {
+      "person_id": "p-mai",
+      "name": "麦琪（虚构）",
+      "unit": "云溪公安分局",
+      "role_ids": [
+        "r-investigator",
+        "r-analyst"
+      ]
+    },
+    {
+      "person_id": "p-chang",
+      "name": "常烁（虚构）",
+      "unit": "云溪公安分局",
+      "role_ids": [
+        "r-auxiliary"
+      ],
+      "transferred_away_at": "2026-03-11T00:00:00+08:00"
+    },
+    {
+      "person_id": "p-kuang",
+      "name": "邝介（虚构）",
+      "unit": "云溪区检察院",
+      "role_ids": [
+        "r-prosecutor"
+      ]
+    }
+  ],
+  "compartments": [
+    {
+      "compartment_id": "c-routine",
+      "name": "日常检查舱",
+      "owner_ids": [
+        "p-yin"
+      ],
+      "unseal_conditions": [
+        {
+          "type": "scheduled",
+          "at": "2026-03-02T08:00:00+08:00"
+        }
+      ]
+    },
+    {
+      "compartment_id": "c-core",
+      "name": "核心侦查舱（嫌疑人/仓库/资金身份）",
+      "owner_ids": [
+        "p-yin",
+        "p-hao"
+      ],
+      "unseal_conditions": [
+        {
+          "type": "manual",
+          "approver_ids": [
+            "p-yin",
+            "p-hao"
+          ]
+        }
+      ]
+    },
+    {
+      "compartment_id": "c-finance",
+      "name": "资金分析舱",
+      "owner_ids": [
+        "p-hao"
+      ],
+      "unseal_conditions": [
+        {
+          "type": "batch_activated",
+          "batch_id": "b-raid"
+        }
+      ]
+    },
+    {
+      "compartment_id": "c-prosecution",
+      "name": "起诉移送舱",
+      "owner_ids": [
+        "p-hao"
+      ],
+      "unseal_conditions": [
+        {
+          "type": "scheduled",
+          "at": "2026-03-25T09:00:00+08:00"
+        }
+      ]
+    }
+  ],
+  "batches": [
+    {
+      "batch_id": "b-routine",
+      "name": "一季度例行稽核批次",
+      "compartment_id": "c-routine",
+      "planned_at": "2026-03-02T08:00:00+08:00"
+    },
+    {
+      "batch_id": "b-raid",
+      "name": "同步收网批次",
+      "compartment_id": "c-core",
+      "planned_at": "2026-03-16T06:00:00+08:00"
+    }
+  ],
+  "materials": [
+    {
+      "material_id": "m-pub-record",
+      "name": "枫林里药店日常检查记录（虚构）",
+      "classification": "public-inspection",
+      "compartment_id": "c-routine"
+    },
+    {
+      "material_id": "m-suspect-dossier",
+      "name": "嫌疑人甲侦控卷宗（虚构）",
+      "classification": "case-evidence",
+      "compartment_id": "c-core",
+      "core_entry_id": "ce-suspect-a"
+    },
+    {
+      "material_id": "m-warehouse-watch",
+      "name": "仓库蹲守影像清单（虚构）",
+      "classification": "case-evidence",
+      "compartment_id": "c-core",
+      "core_entry_id": "ce-warehouse-a"
+    },
+    {
+      "material_id": "m-fund-flow",
+      "name": "F-07 资金流向分析（虚构）",
+      "classification": "case-evidence",
+      "compartment_id": "c-finance",
+      "core_entry_id": "ce-fund-a"
+    },
+    {
+      "material_id": "m-evidence-pack",
+      "name": "移送公安证据汇编（虚构）",
+      "classification": "case-evidence",
+      "compartment_id": "c-core",
+      "core_entry_id": "ce-suspect-a",
+      "derived_from": [
+        {
+          "material_id": "m-suspect-dossier",
+          "relation": "extract",
+          "excerpt_ref": "节录本-0320#第2-5页"
+        },
+        {
+          "material_id": "m-pub-record",
+          "relation": "intake"
+        }
+      ]
+    },
+    {
+      "material_id": "m-prosecution-brief",
+      "name": "起诉意见书附证据副本（虚构）",
+      "classification": "prosecution-copy",
+      "compartment_id": "c-prosecution",
+      "derived_from": [
+        {
+          "material_id": "m-evidence-pack",
+          "relation": "copy"
+        },
+        {
+          "material_id": "m-fund-flow",
+          "relation": "copy"
+        }
+      ]
+    }
+  ],
+  "leads": [
+    {
+      "lead_id": "l-fenglin-pharmacy",
+      "name": "枫林里药店刷卡异常线索（虚构）",
+      "compartment_id": "c-routine",
+      "linked_core_entry_ids": [
+        "ce-suspect-a"
+      ],
+      "link_condition": {
+        "type": "batch_activated",
+        "batch_id": "b-raid"
+      }
+    }
+  ],
+  "grants": [
+    {
+      "grant_id": "g-yin-routine",
+      "person_id": "p-yin",
+      "compartment_id": "c-routine",
+      "actions": [
+        "view",
+        "grant-temp"
+      ]
+    },
+    {
+      "grant_id": "g-lu-routine",
+      "person_id": "p-lu",
+      "compartment_id": "c-routine",
+      "actions": [
+        "view",
+        "excerpt"
+      ]
+    },
+    {
+      "grant_id": "g-chang-temp",
+      "person_id": "p-chang",
+      "compartment_id": "c-routine",
+      "actions": [
+        "excerpt"
+      ],
+      "temp": true,
+      "valid_from": "2026-03-03T08:30:00+08:00",
+      "expires_at": "2026-03-05T18:00:00+08:00",
+      "basis_event_id": "ev-004"
+    },
+    {
+      "grant_id": "g-mai-temp",
+      "person_id": "p-mai",
+      "compartment_id": "c-routine",
+      "actions": [
+        "view"
+      ],
+      "temp": true,
+      "valid_from": "2026-03-08T09:00:00+08:00",
+      "expires_at": "2026-03-12T18:00:00+08:00",
+      "basis_event_id": "ev-006"
+    },
+    {
+      "grant_id": "g-yin-core",
+      "person_id": "p-yin",
+      "compartment_id": "c-core",
+      "actions": [
+        "view",
+        "transfer"
+      ],
+      "core_clearance": true
+    },
+    {
+      "grant_id": "g-xing-core",
+      "person_id": "p-xing",
+      "compartment_id": "c-core",
+      "actions": [
+        "view",
+        "excerpt",
+        "transfer",
+        "grant-temp"
+      ],
+      "core_clearance": true
+    },
+    {
+      "grant_id": "g-mai-core-temp",
+      "person_id": "p-mai",
+      "compartment_id": "c-core",
+      "actions": [
+        "view"
+      ],
+      "core_clearance": true,
+      "temp": true,
+      "valid_from": "2026-03-19T10:00:00+08:00",
+      "expires_at": "2026-03-21T10:00:00+08:00",
+      "basis_event_id": "ev-014"
+    },
+    {
+      "grant_id": "g-mai-finance",
+      "person_id": "p-mai",
+      "compartment_id": "c-finance",
+      "actions": [
+        "view"
+      ],
+      "core_clearance": true
+    },
+    {
+      "grant_id": "g-xing-prosecution",
+      "person_id": "p-xing",
+      "compartment_id": "c-prosecution",
+      "actions": [
+        "transfer"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "event_id": "ev-001",
+      "seq": 1,
+      "at": "2026-03-02T08:00:00+08:00",
+      "actor": "p-yin",
+      "action": "compartment-unsealed",
+      "payload": {
+        "compartment_id": "c-routine"
+      },
+      "prev_hash": null,
+      "hash": "005936c2880223d02375219f248f1be088dfc005452de91bf84eb87fe3c329fc"
+    },
+    {
+      "event_id": "ev-002",
+      "seq": 2,
+      "at": "2026-03-02T08:05:00+08:00",
+      "actor": "p-yin",
+      "action": "batch-activated",
+      "payload": {
+        "batch_id": "b-routine"
+      },
+      "prev_hash": "005936c2880223d02375219f248f1be088dfc005452de91bf84eb87fe3c329fc",
+      "hash": "0d47c4affb4b9db13da8fabe0544937b6b3d4f3160f8d5d2b590438686cd1e1d"
+    },
+    {
+      "event_id": "ev-003",
+      "seq": 3,
+      "at": "2026-03-02T09:12:00+08:00",
+      "actor": "p-lu",
+      "action": "view",
+      "payload": {
+        "material_ids": [
+          "m-pub-record"
+        ],
+        "note": "日常检查前调阅药店档案"
+      },
+      "prev_hash": "0d47c4affb4b9db13da8fabe0544937b6b3d4f3160f8d5d2b590438686cd1e1d",
+      "hash": "46c3c1abf9cdcc7b20e3f2ca0da2e7b778cd4f6839baafeb6da94cdc161f5395"
+    },
+    {
+      "event_id": "ev-004",
+      "seq": 4,
+      "at": "2026-03-03T08:30:00+08:00",
+      "actor": "p-yin",
+      "action": "temp-grant",
+      "payload": {
+        "grant_id": "g-chang-temp",
+        "compartment_id": "c-routine",
+        "justification": "协助摘录近三个月刷卡台账，限两个工作日"
+      },
+      "prev_hash": "46c3c1abf9cdcc7b20e3f2ca0da2e7b778cd4f6839baafeb6da94cdc161f5395",
+      "hash": "5c36c1f30065f50880bad43c3495974f2db97ddf9ffe7e1205f2b287baa5a9f0"
+    },
+    {
+      "event_id": "ev-005",
+      "seq": 5,
+      "at": "2026-03-03T09:05:00+08:00",
+      "actor": "p-chang",
+      "action": "excerpt",
+      "payload": {
+        "material_ids": [
+          "m-pub-record"
+        ],
+        "excerpt_ref": "台账摘录-0303"
+      },
+      "prev_hash": "5c36c1f30065f50880bad43c3495974f2db97ddf9ffe7e1205f2b287baa5a9f0",
+      "hash": "814c4344903c30ab9aa42c093b5c7caaebe5869ee01d71efc2453e685db18b55"
+    },
+    {
+      "event_id": "ev-006",
+      "seq": 6,
+      "at": "2026-03-08T09:00:00+08:00",
+      "actor": "p-yin",
+      "action": "temp-grant",
+      "payload": {
+        "grant_id": "g-mai-temp",
+        "compartment_id": "c-routine",
+        "justification": "交叉比对票据线索，限当日至 3 月 12 日"
+      },
+      "prev_hash": "814c4344903c30ab9aa42c093b5c7caaebe5869ee01d71efc2453e685db18b55",
+      "hash": "abbc2bea8cfa055eeaa3842b18018605eb180d7b53aba881b807ae33e185f036"
+    },
+    {
+      "event_id": "ev-007",
+      "seq": 7,
+      "at": "2026-03-08T09:20:00+08:00",
+      "actor": "p-mai",
+      "action": "view",
+      "payload": {
+        "material_ids": [
+          "m-pub-record"
+        ],
+        "note": "比对异常票据样式"
+      },
+      "prev_hash": "abbc2bea8cfa055eeaa3842b18018605eb180d7b53aba881b807ae33e185f036",
+      "hash": "dd7d3555062ad8025be14e1d36ad18c9975068beb3021c0d563e9fc22ff588de"
+    },
+    {
+      "event_id": "ev-008",
+      "seq": 8,
+      "at": "2026-03-09T14:00:00+08:00",
+      "actor": "p-yin",
+      "action": "grant-revoked",
+      "payload": {
+        "grant_id": "g-mai-temp",
+        "reason": "岗位调整，即时收回例行舱权限；此前操作记录保留"
+      },
+      "prev_hash": "dd7d3555062ad8025be14e1d36ad18c9975068beb3021c0d563e9fc22ff588de",
+      "hash": "970a834fe8cc1ffa1187e690af970d5c41f42a427082db28af21f1a5450ace73"
+    },
+    {
+      "event_id": "ev-009",
+      "seq": 9,
+      "at": "2026-03-12T17:30:00+08:00",
+      "actor": "p-hao",
+      "action": "batch-postponed",
+      "payload": {
+        "batch_id": "b-raid",
+        "new_at": "2026-03-20T06:00:00+08:00",
+        "reason": "等待跨区仓储点同时具备收网条件"
+      },
+      "prev_hash": "970a834fe8cc1ffa1187e690af970d5c41f42a427082db28af21f1a5450ace73",
+      "hash": "2db77750db9623286b4f955175cdbb78b62677e23c6ee93aaa2be8a6476b2a78"
+    },
+    {
+      "event_id": "ev-010",
+      "seq": 10,
+      "at": "2026-03-18T15:00:00+08:00",
+      "actor": "p-yin",
+      "action": "unseal-approval",
+      "payload": {
+        "compartment_id": "c-core"
+      },
+      "prev_hash": "2db77750db9623286b4f955175cdbb78b62677e23c6ee93aaa2be8a6476b2a78",
+      "hash": "eae0a0601267ed1ea0a43ef90912b955604a7846681337d5d186a08b1c1b75ea"
+    },
+    {
+      "event_id": "ev-011",
+      "seq": 11,
+      "at": "2026-03-18T15:10:00+08:00",
+      "actor": "p-hao",
+      "action": "unseal-approval",
+      "payload": {
+        "compartment_id": "c-core"
+      },
+      "prev_hash": "eae0a0601267ed1ea0a43ef90912b955604a7846681337d5d186a08b1c1b75ea",
+      "hash": "c4f5704799cfae5b6980e81335dd561d21d7e204e0aea0303ec07c28266e01b2"
+    },
+    {
+      "event_id": "ev-012",
+      "seq": 12,
+      "at": "2026-03-18T15:15:00+08:00",
+      "actor": "p-hao",
+      "action": "compartment-unsealed",
+      "payload": {
+        "compartment_id": "c-core"
+      },
+      "prev_hash": "c4f5704799cfae5b6980e81335dd561d21d7e204e0aea0303ec07c28266e01b2",
+      "hash": "cb009aa2f507ab3934176251a6327b26948e58b09b04d6683638f283fcb45fba"
+    },
+    {
+      "event_id": "ev-013",
+      "seq": 13,
+      "at": "2026-03-18T16:00:00+08:00",
+      "actor": "p-hao",
+      "action": "core-list-expanded",
+      "payload": {
+        "entry_ids": [
+          "ce-suspect-b"
+        ],
+        "approver_ids": [
+          "p-yin",
+          "p-hao"
+        ],
+        "justification": "资金对手方身份经串并确认"
+      },
+      "prev_hash": "cb009aa2f507ab3934176251a6327b26948e58b09b04d6683638f283fcb45fba",
+      "hash": "098f61e28ef35ced5d99990cc9692514b9155f4d10092f3f88290c7ec5b368fd"
+    },
+    {
+      "event_id": "ev-014",
+      "seq": 14,
+      "at": "2026-03-19T10:00:00+08:00",
+      "actor": "p-xing",
+      "action": "temp-grant",
+      "payload": {
+        "grant_id": "g-mai-core-temp",
+        "compartment_id": "c-core",
+        "justification": "突击核对“账房”与仓库影像是否同人，48 小时内有效"
+      },
+      "prev_hash": "098f61e28ef35ced5d99990cc9692514b9155f4d10092f3f88290c7ec5b368fd",
+      "hash": "f3deb7f1eb80fd51b2b865998e75e72aa4c6351a4b2ebf3ba82f3104c3693dd5"
+    },
+    {
+      "event_id": "ev-015",
+      "seq": 15,
+      "at": "2026-03-19T10:40:00+08:00",
+      "actor": "p-mai",
+      "action": "view",
+      "payload": {
+        "material_ids": [
+          "m-suspect-dossier",
+          "m-warehouse-watch"
+        ],
+        "note": "人相比对"
+      },
+      "prev_hash": "f3deb7f1eb80fd51b2b865998e75e72aa4c6351a4b2ebf3ba82f3104c3693dd5",
+      "hash": "419129d17ac6be1528b3cb919842c48b637061d53b4800c44f99b4b10882f2c6"
+    },
+    {
+      "event_id": "ev-016",
+      "seq": 16,
+      "at": "2026-03-20T05:30:00+08:00",
+      "actor": "p-yin",
+      "action": "emergency-freeze",
+      "payload": {
+        "compartment_id": "c-routine",
+        "reason": "接到线索称团伙在被检查机构布点，收网前暂停一切例行查阅"
+      },
+      "prev_hash": "419129d17ac6be1528b3cb919842c48b637061d53b4800c44f99b4b10882f2c6",
+      "hash": "f7e4f24e2000349d10cbabd0a7ffd4d1b2c19aace08b077471ed7950b949b9ba"
+    },
+    {
+      "event_id": "ev-017",
+      "seq": 17,
+      "at": "2026-03-20T06:00:00+08:00",
+      "actor": "p-hao",
+      "action": "batch-activated",
+      "payload": {
+        "batch_id": "b-raid"
+      },
+      "prev_hash": "f7e4f24e2000349d10cbabd0a7ffd4d1b2c19aace08b077471ed7950b949b9ba",
+      "hash": "7f8028e160bbf1ee69afbce648bfdfd4b1aba9fb06dd0510d5678b4efeba211e"
+    },
+    {
+      "event_id": "ev-018",
+      "seq": 18,
+      "at": "2026-03-20T06:05:00+08:00",
+      "actor": "p-hao",
+      "action": "compartment-unsealed",
+      "payload": {
+        "compartment_id": "c-finance"
+      },
+      "prev_hash": "7f8028e160bbf1ee69afbce648bfdfd4b1aba9fb06dd0510d5678b4efeba211e",
+      "hash": "4ba892390cf896d673e5885849927e9d5f0ea670e935814f6c56b1a798449f7a"
+    },
+    {
+      "event_id": "ev-019",
+      "seq": 19,
+      "at": "2026-03-20T06:10:00+08:00",
+      "actor": "p-xing",
+      "action": "lead-linked",
+      "payload": {
+        "lead_id": "l-fenglin-pharmacy",
+        "core_entry_ids": [
+          "ce-suspect-a"
+        ]
+      },
+      "prev_hash": "4ba892390cf896d673e5885849927e9d5f0ea670e935814f6c56b1a798449f7a",
+      "hash": "baaa1b1d40cb40793fe24268a29b28f93f881fdea3dff77f98da915d71987524"
+    },
+    {
+      "event_id": "ev-020",
+      "seq": 20,
+      "at": "2026-03-20T06:30:00+08:00",
+      "actor": "p-xing",
+      "action": "view",
+      "payload": {
+        "material_ids": [
+          "m-suspect-dossier",
+          "m-warehouse-watch"
+        ],
+        "note": "抓捕前最后核对"
+      },
+      "prev_hash": "baaa1b1d40cb40793fe24268a29b28f93f881fdea3dff77f98da915d71987524",
+      "hash": "237d0b85f53f09dfcdb5627f2968d2733d1c9aa9f8c4096ed9bdeeff5781b2d7"
+    },
+    {
+      "event_id": "ev-021",
+      "seq": 21,
+      "at": "2026-03-20T07:00:00+08:00",
+      "actor": "p-mai",
+      "action": "view",
+      "payload": {
+        "material_ids": [
+          "m-fund-flow"
+        ],
+        "note": "同步冻结账户清单"
+      },
+      "prev_hash": "237d0b85f53f09dfcdb5627f2968d2733d1c9aa9f8c4096ed9bdeeff5781b2d7",
+      "hash": "ad044f5101a34ddbf9e905d2ff7dd5426e7dcccdedddcf1668c0032c244d2d61"
+    },
+    {
+      "event_id": "ev-022",
+      "seq": 22,
+      "at": "2026-03-20T07:30:00+08:00",
+      "actor": "p-xing",
+      "action": "excerpt",
+      "payload": {
+        "material_ids": [
+          "m-suspect-dossier"
+        ],
+        "excerpt_ref": "节录本-0320#第2-5页"
+      },
+      "prev_hash": "ad044f5101a34ddbf9e905d2ff7dd5426e7dcccdedddcf1668c0032c244d2d61",
+      "hash": "e313c1ded63a658e056b3f3300e3bca5610b6c8309252c868e4ebfd1bad2589c"
+    },
+    {
+      "event_id": "ev-023",
+      "seq": 23,
+      "at": "2026-03-21T18:00:00+08:00",
+      "actor": "p-yin",
+      "action": "freeze-lifted",
+      "payload": {
+        "compartment_id": "c-routine"
+      },
+      "prev_hash": "e313c1ded63a658e056b3f3300e3bca5610b6c8309252c868e4ebfd1bad2589c",
+      "hash": "313ec49252220b7ffc7b4c87996ad2ed81ee77c29ed2c4a51ae5baca7d4add4e"
+    },
+    {
+      "event_id": "ev-024",
+      "seq": 24,
+      "at": "2026-03-22T09:00:00+08:00",
+      "actor": "p-lu",
+      "action": "view",
+      "payload": {
+        "material_ids": [
+          "m-pub-record"
+        ],
+        "note": "恢复例行检查"
+      },
+      "prev_hash": "313ec49252220b7ffc7b4c87996ad2ed81ee77c29ed2c4a51ae5baca7d4add4e",
+      "hash": "e251c3c46f934dfb29e30aad1eb1fe0109a47f617220bb089702c272c6ecb3c0"
+    },
+    {
+      "event_id": "ev-025",
+      "seq": 25,
+      "at": "2026-03-22T15:00:00+08:00",
+      "actor": "p-yin",
+      "action": "transfer",
+      "payload": {
+        "material_ids": [
+          "m-evidence-pack"
+        ],
+        "recipient_id": "p-hao",
+        "from_unit": "云溪医保分局",
+        "to_unit": "云溪公安分局"
+      },
+      "prev_hash": "e251c3c46f934dfb29e30aad1eb1fe0109a47f617220bb089702c272c6ecb3c0",
+      "hash": "4ad95175c21107b628bcf7d54a6400dc7da0f5a2cb1ea199827625738f897659"
+    },
+    {
+      "event_id": "ev-026",
+      "seq": 26,
+      "at": "2026-03-25T09:00:00+08:00",
+      "actor": "p-hao",
+      "action": "compartment-unsealed",
+      "payload": {
+        "compartment_id": "c-prosecution"
+      },
+      "prev_hash": "4ad95175c21107b628bcf7d54a6400dc7da0f5a2cb1ea199827625738f897659",
+      "hash": "660efcb6327237d31475c2e0d3bf4ecbb4b7801acbf71f38f815b1f58c64cdb5"
+    },
+    {
+      "event_id": "ev-027",
+      "seq": 27,
+      "at": "2026-03-26T10:00:00+08:00",
+      "actor": "p-xing",
+      "action": "transfer",
+      "payload": {
+        "material_ids": [
+          "m-prosecution-brief"
+        ],
+        "recipient_id": "p-kuang",
+        "from_unit": "云溪公安分局",
+        "to_unit": "云溪区检察院"
+      },
+      "prev_hash": "660efcb6327237d31475c2e0d3bf4ecbb4b7801acbf71f38f815b1f58c64cdb5",
+      "hash": "3ac4deb5034b8150c6361deda49c2cf4a2dbcaf479435e3ddfce69b8073b349d"
+    }
+  ],
+  "receipts": [
+    {
+      "receipt_id": "rcpt-ev-025",
+      "transfer_event_id": "ev-025",
+      "received_at": "2026-03-22T16:00:00+08:00",
+      "materials_hash": "3440df8494c12f1e81528b9fb725037edf895f0c9d93a1ca070f360167908dfe",
+      "receiver_confirmed": true
+    },
+    {
+      "receipt_id": "rcpt-ev-027",
+      "transfer_event_id": "ev-027",
+      "received_at": "2026-03-26T11:00:00+08:00",
+      "materials_hash": "1693d992fa1b87c86388cbd943f8294cf31e304950942e89a6f33a5a9714bfdf",
+      "receiver_confirmed": true
+    }
+  ],
+  "closure": {
+    "report_at": "2026-03-30T17:00:00+08:00",
+    "knowledge_report": [
+      {
+        "person_id": "p-lu",
+        "scopes": [
+          {
+            "first_seen_at": "2026-03-02T09:12:00+08:00",
+            "basis_event_id": "ev-003",
+            "material_ids": [
+              "m-pub-record"
+            ]
+          }
+        ]
+      },
+      {
+        "person_id": "p-xing",
+        "scopes": [
+          {
+            "first_seen_at": "2026-03-20T06:30:00+08:00",
+            "basis_event_id": "ev-020",
+            "material_ids": [
+              "m-suspect-dossier"
+            ]
+          },
+          {
+            "first_seen_at": "2026-03-20T06:30:00+08:00",
+            "basis_event_id": "ev-020",
+            "material_ids": [
+              "m-warehouse-watch"
+            ]
+          }
+        ]
+      },
+      {
+        "person_id": "p-mai",
+        "scopes": [
+          {
+            "first_seen_at": "2026-03-08T09:20:00+08:00",
+            "basis_event_id": "ev-007",
+            "material_ids": [
+              "m-pub-record"
+            ]
+          },
+          {
+            "first_seen_at": "2026-03-19T10:40:00+08:00",
+            "basis_event_id": "ev-015",
+            "material_ids": [
+              "m-suspect-dossier"
+            ]
+          },
+          {
+            "first_seen_at": "2026-03-19T10:40:00+08:00",
+            "basis_event_id": "ev-015",
+            "material_ids": [
+              "m-warehouse-watch"
+            ]
+          },
+          {
+            "first_seen_at": "2026-03-20T07:00:00+08:00",
+            "basis_event_id": "ev-021",
+            "material_ids": [
+              "m-fund-flow"
+            ]
+          }
+        ]
+      }
+    ],
+    "provenance_summary": [
+      {
+        "prosecution_material_id": "m-prosecution-brief",
+        "sources": [
+          {
+            "material_id": "m-prosecution-brief",
+            "classification": "prosecution-copy"
+          },
+          {
+            "material_id": "m-evidence-pack",
+            "classification": "case-evidence",
+            "via": "copy"
+          },
+          {
+            "material_id": "m-fund-flow",
+            "classification": "case-evidence",
+            "via": "copy"
+          },
+          {
+            "material_id": "m-suspect-dossier",
+            "classification": "case-evidence",
+            "via": "extract：节录本-0320#第2-5页"
+          },
+          {
+            "material_id": "m-pub-record",
+            "classification": "public-inspection",
+            "via": "intake：例行检查材料转化入卷"
+          }
+        ]
+      }
+    ]
+  }
+}

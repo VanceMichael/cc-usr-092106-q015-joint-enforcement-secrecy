@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "按阶段分舱的联合专案约定文档",
+  "description": "描述角色、行动批次、舱位、可见对象、密封材料、解封条件、授权、只追加日志、跨部门回执与结案获知范围报告的结构约定。跨记录的引用与状态不变量由 src/case.js 校验，本 schema 只约束形状。",
+  "type": "object",
+  "required": [
+    "domain",
+    "version",
+    "sample_id",
+    "case_file",
+    "persons",
+    "compartments",
+    "batches",
+    "materials",
+    "leads",
+    "grants",
+    "events",
+    "receipts",
+    "closure"
+  ],
+  "properties": {
+    "domain": { "const": "joint-enforcement-secrecy" },
+    "version": { "type": "integer", "minimum": 1 },
+    "sample_id": { "type": "string", "minLength": 1 },
+    "case_file": { "$ref": "#/$defs/caseFile" },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role_id", "name"],
+        "properties": {
+          "role_id": { "type": "string" },
+          "name": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "persons": { "type": "array", "items": { "$ref": "#/$defs/person" } },
+    "compartments": { "type": "array", "items": { "$ref": "#/$defs/compartment" } },
+    "batches": { "type": "array", "items": { "$ref": "#/$defs/batch" } },
+    "materials": { "type": "array", "items": { "$ref": "#/$defs/material" } },
+    "leads": { "type": "array", "items": { "$ref": "#/$defs/lead" } },
+    "grants": { "type": "array", "items": { "$ref": "#/$defs/grant" } },
+    "events": { "type": "array", "items": { "$ref": "#/$defs/event" } },
+    "receipts": { "type": "array", "items": { "$ref": "#/$defs/receipt" } },
+    "closure": { "$ref": "#/$defs/closure" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "caseFile": {
+      "type": "object",
+      "required": ["case_id", "title", "director_ids", "core_entries"],
+      "properties": {
+        "case_id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string" },
+        "director_ids": { "type": "array", "minItems": 2, "items": { "type": "string" } },
+        "core_entries": { "type": "array", "items": { "$ref": "#/$defs/coreEntry" } }
+      },
+      "additionalProperties": false
+    },
+    "coreEntry": {
+      "type": "object",
+      "required": ["entry_id", "kind", "initial"],
+      "properties": {
+        "entry_id": { "type": "string" },
+        "kind": { "enum": ["suspect", "warehouse", "fund-account"] },
+        "label": { "type": "string" },
+        "initial": { "type": "boolean" },
+        "added_via_event_id": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "person": {
+      "type": "object",
+      "required": ["person_id", "name", "unit"],
+      "properties": {
+        "person_id": { "type": "string" },
+        "name": { "type": "string" },
+        "unit": { "type": "string" },
+        "role_ids": { "type": "array", "items": { "type": "string" } },
+        "transferred_away_at": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "condition": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["batch_activated", "scheduled", "manual"] },
+        "batch_id": { "type": "string" },
+        "at": { "type": "string" },
+        "approver_ids": { "type": "array", "minItems": 2, "items": { "type": "string" } },
+        "approval_event_ids": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "compartment": {
+      "type": "object",
+      "required": ["compartment_id", "name", "owner_ids", "unseal_conditions"],
+      "properties": {
+        "compartment_id": { "type": "string" },
+        "name": { "type": "string" },
+        "owner_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "opens_at": { "type": "string" },
+        "closes_at": { "type": "string" },
+        "unseal_conditions": { "type": "array", "items": { "$ref": "#/$defs/condition" } }
+      },
+      "additionalProperties": false
+    },
+    "batch": {
+      "type": "object",
+      "required": ["batch_id", "name", "compartment_id", "planned_at"],
+      "properties": {
+        "batch_id": { "type": "string" },
+        "name": { "type": "string" },
+        "compartment_id": { "type": "string" },
+        "planned_at": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "material": {
+      "type": "object",
+      "required": ["material_id", "name", "classification", "compartment_id"],
+      "properties": {
+        "material_id": { "type": "string" },
+        "name": { "type": "string" },
+        "classification": { "enum": ["public-inspection", "case-evidence", "prosecution-copy"] },
+        "compartment_id": { "type": "string" },
+        "core_entry_id": { "type": "string" },
+        "derived_from": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["material_id", "relation"],
+            "properties": {
+              "material_id": { "type": "string" },
+              "relation": { "enum": ["intake", "extract", "copy"] },
+              "excerpt_ref": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "lead": {
+      "type": "object",
+      "required": ["lead_id", "name", "compartment_id"],
+      "properties": {
+        "lead_id": { "type": "string" },
+        "name": { "type": "string" },
+        "compartment_id": { "type": "string" },
+        "linked_core_entry_ids": { "type": "array", "items": { "type": "string" } },
+        "link_condition": { "$ref": "#/$defs/condition" }
+      },
+      "additionalProperties": false
+    },
+    "grant": {
+      "type": "object",
+      "required": ["grant_id", "person_id", "compartment_id", "actions"],
+      "properties": {
+        "grant_id": { "type": "string" },
+        "person_id": { "type": "string" },
+        "compartment_id": { "type": "string" },
+        "actions": {
+          "type": "array",
+          "items": { "enum": ["view", "excerpt", "transfer", "grant-temp"] }
+        },
+        "temp": { "type": "boolean" },
+        "valid_from": { "type": "string" },
+        "expires_at": { "type": "string" },
+        "basis_event_id": { "type": "string" },
+        "core_clearance": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "required": ["event_id", "seq", "at", "actor", "action", "prev_hash", "hash"],
+      "properties": {
+        "event_id": { "type": "string" },
+        "seq": { "type": "integer", "minimum": 1 },
+        "at": { "type": "string" },
+        "actor": { "type": "string" },
+        "action": {
+          "enum": [
+            "compartment-unsealed",
+            "unseal-approval",
+            "emergency-freeze",
+            "freeze-lifted",
+            "batch-activated",
+            "batch-postponed",
+            "view",
+            "excerpt",
+            "transfer",
+            "temp-grant",
+            "grant-revoked",
+            "lead-linked",
+            "core-list-expanded"
+          ]
+        },
+        "payload": { "type": "object" },
+        "prev_hash": { "type": ["string", "null"] },
+        "hash": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "receipt": {
+      "type": "object",
+      "required": ["receipt_id", "transfer_event_id", "received_at", "materials_hash", "receiver_confirmed"],
+      "properties": {
+        "receipt_id": { "type": "string" },
+        "transfer_event_id": { "type": "string" },
+        "received_at": { "type": "string" },
+        "materials_hash": { "type": "string" },
+        "receiver_confirmed": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "closure": {
+      "type": "object",
+      "required": ["report_at", "knowledge_report", "provenance_summary"],
+      "properties": {
+        "report_at": { "type": "string" },
+        "knowledge_report": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["person_id", "scopes"],
+            "properties": {
+              "person_id": { "type": "string" },
+              "scopes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["first_seen_at", "basis_event_id", "material_ids"],
+                  "properties": {
+                    "first_seen_at": { "type": "string" },
+                    "basis_event_id": { "type": "string" },
+                    "material_ids": { "type": "array", "items": { "type": "string" } }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "provenance_summary": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["prosecution_material_id", "sources"],
+            "properties": {
+              "prosecution_material_id": { "type": "string" },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["material_id", "classification"],
+                  "properties": {
+                    "material_id": { "type": "string" },
+                    "classification": { "enum": ["public-inspection", "case-evidence", "prosecution-copy"] },
+                    "via": { "type": "string" }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
